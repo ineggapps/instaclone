@@ -6,13 +6,18 @@
   "author": "inegg <inegg.apps@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "graphql-yoga": "^1.17.4"
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "dotenv": "^7.0.0",
+    "graphql-yoga": "^1.17.4",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "nodemon": "^1.18.11"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/server.js",
+    "kill": "taskkill -im node* -f"
   }
 }
