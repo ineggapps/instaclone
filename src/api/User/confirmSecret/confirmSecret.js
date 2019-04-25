@@ -9,6 +9,12 @@ export default {
       console.log("user", user);
       if (user.loginSecret === secret) {
         //JWT
+        await prisma.updateUser({
+          where: { id: user.id },
+          data: {
+            loginSecret: ""
+          }
+        });
         return generateToken(user.id);
       } else {
         throw Error("Wrong email/secret conviation");
