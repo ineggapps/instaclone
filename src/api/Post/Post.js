@@ -5,10 +5,11 @@ export default {
     files: ({ id }) => prisma.post({ id }).files(),
     comments: ({ id }) => prisma.post({ id }).comments(),
     user: ({ id }) => prisma.post({ id }).user(),
+    likes: ({ id }) => prisma.post({ id }).likes(),
     isLiked: async (parent, _, { request }) => {
       const { user } = request;
       const { id } = parent;
-      const isLiked = await prisma.$exists.like({
+      return prisma.$exists.like({
         AND: [
           {
             user: {
@@ -22,12 +23,17 @@ export default {
           }
         ]
       });
-      console.log(isLiked);
-      return isLiked;
     },
     likeCount: parent =>
       prisma
         .likesConnection({ where: { post: { id: parent.id } } })
+        .aggregate()
+        .count(),
+    commentCount: parent =>
+      prisma
+        .commentsConnection({
+          where: { post: { id: parent.id } }
+        })
         .aggregate()
         .count()
   }
